@@ -23,8 +23,9 @@ def make_burger(student_id):
 
     end = time.time()
     end_time  = datetime.now().strftime('%H:%M:%S')
-    duration = start - end
-    print(f"[{datetime.now().strftime('%H:%M:%S')}] เสร็จแล้ว! เบอร์เกอร์ของนักเรียนคนที่ {student_id}|เริ่มเมื่อ:{start_str}|เสร็จเมื่อ:{end_time:.4f} วินาที|ใช้เวลาไป{duration:.2f}")
+
+    duration = end - start
+    print(f"[{datetime.now().strftime('%H:%M:%S')}] เสร็จแล้ว! เบอร์เกอร์ของนักเรียนคนที่ {student_id}|เริ่มเมื่อ:{start_str}|เสร็จเมื่อ:{end_time} วินาที|ใช้เวลาไป{duration}")
 
 
 
