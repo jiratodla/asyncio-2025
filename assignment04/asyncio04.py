@@ -9,7 +9,8 @@ async def download_image(name, delay):
     
 async def main():
     print(f"{time.ctime()} main corotine started")
-    started_task = [asyncio.create_task(download_image(i , i)) for i in range(3)]
+    delays = {2: 0,1:1,0:2}
+    started_task = [asyncio.create_task(download_image(i , delays[i])) for i in range(3)]
     await asyncio.sleep(0.1)
     for task in started_task:
         await task
