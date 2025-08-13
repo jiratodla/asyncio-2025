@@ -10,7 +10,7 @@ urls = [
 ]
 
 async def fetch(url):
-    print(f"[{time.time()}] Fetching {url}")
+    print(f"[{time.ctime()}] Fetching {url}")
     async with aiohttp.ClientSession() as session:
         async with session.get(url) as resp:
             text = await resp.text()
