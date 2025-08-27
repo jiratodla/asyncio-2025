@@ -10,6 +10,7 @@ async def task2():
     raise Exception('Something bad happened')
 
 async def task3():
+    
     print('Hello from coroutine 2')
     await asyncio.sleep(1)
 
