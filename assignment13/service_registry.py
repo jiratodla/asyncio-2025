@@ -10,7 +10,7 @@ services_registry: Dict[str, dict] = {}
 class Service(BaseModel):
     name: str
     url: str
-    description: str = None
+    city: str
 
 @app.get("/services")
 async def get_services():

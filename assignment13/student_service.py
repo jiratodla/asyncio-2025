@@ -5,11 +5,11 @@ import requests
 import os
 import folium
 from dotenv import load_dotenv
-
+from fastapi.responses import HTMLResponse
 load_dotenv()
 SERVICE_REGISTRY_URL = os.getenv("SERVICE_REGISTRY_URL", "http://127.0.0.1:9000")
 app = FastAPI(title="Weather Map API")
-
+DEFALUT_CITY = os.getenv("CITY")
 API_KEY = os.getenv("OWM_API_KEY")
 STUDENT_NAME = os.getenv("STUDENT_NAME")
 BASE_URL = "https://api.openweathermap.org/data/2.5/weather"
@@ -39,7 +39,6 @@ def weather_map(city: str):
 
     # คืนค่า HTML เต็ม
     return HTMLResponse(content=m.get_root().render())
-from fastapi.responses import HTMLResponse
 
 @app.get("/aggregate_map", response_class=HTMLResponse)
 async def aggregate_map():
@@ -94,8 +93,8 @@ async def aggregate_map():
 async def register_self():
     service_info = {
         "name": STUDENT_NAME,
-        "url": "http://localhost:8001",
-        "description": "Student service for Bangkok"
+        "url": SERVICE_REGISTRY_URL,
+        "city": DEFALUT_CITY
     }
     async with httpx.AsyncClient() as client:
         response = await client.post(f"{SERVICE_REGISTRY_URL}/register", json=service_info)
@@ -104,9 +103,9 @@ async def register_self():
 @app.put("/update_self")
 async def update_self():
     service_info = {
-        "name": "student_service_bangkok",
-        "url": "http://localhost:8001",
-        "description": "Updated Student service for Bangkok"
+        "name": STUDENT_NAME,
+        "url": SERVICE_REGISTRY_URL,
+        "city": DEFALUT_CITY
     }
     async with httpx.AsyncClient() as client:
         response = await client.put(f"{SERVICE_REGISTRY_URL}/update", json=service_info)
@@ -115,5 +114,5 @@ async def update_self():
 @app.delete("/unregister_self")
 async def unregister_self():
     async with httpx.AsyncClient() as client:
-        response = await client.delete(f"{SERVICE_REGISTRY_URL}/unregister/student_service_bangkok")
+        response = await client.delete(f"{SERVICE_REGISTRY_URL}/unregister/{STUDENT_NAME}")
         return response.json()
