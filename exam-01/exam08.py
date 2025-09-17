@@ -11,9 +11,14 @@ async def fetch(url):
     session = aiohttp.ClientSession()   # ไม่ปิด
     async with session.get(url) as resp:
         return await resp.text()
+    
 
 async def main():
     html = await fetch("https://example.com")
+    async with aiohttp.ClientSession() as session:
+        async with session.get("https://example.com") as resp:
+            html = await resp.text()
     print(len(html))
+        
 
 asyncio.run(main())
