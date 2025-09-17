@@ -12,7 +12,9 @@ async def say_hello():
     print("World")
 
 async def main():
-    say_hello()
+    asyncio.create_task(say_hello())
+    print(say_hello)
+    await asyncio.sleep(1)
 
 asyncio.run(main())
 
