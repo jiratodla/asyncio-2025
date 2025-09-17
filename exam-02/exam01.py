@@ -34,7 +34,6 @@ async def primes_up_to(n: int) -> List[int]:
 async def main():
     ns = [10, 20, 30]  # ตัวอย่างหลายค่า
     tasks = []
-    asyncio.create_task(primes_up_to(10))
     for n in ns:
         tasks.append(asyncio.create_task(primes_up_to(n)))
     for n, task in zip(ns, tasks):
