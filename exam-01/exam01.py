@@ -12,9 +12,8 @@ async def say_hello():
     print("World")
 
 async def main():
-    asyncio.create_task(say_hello())
-    print(say_hello)
-    await asyncio.sleep(1)
+    task = asyncio.create_task(say_hello())  # สร้าง task แล้วเก็บไว้
+    await task  # รอให้ task ทำงานจนเสร็จ
 
 asyncio.run(main())
 
