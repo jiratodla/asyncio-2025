@@ -12,15 +12,9 @@ async def risky_task():
 async def main():
     tasks = []
     for _ in range(2):
-            tasks.append(asyncio.create_task(risky_task()))
-    try:
-        
-        asyncio.gather(risky_task(), risky_task())
-        await asyncio.sleep(1)
+        tasks.append(asyncio.create_task(risky_task()))
 
-        
-    except Exception as e:
-        print("Caught:", e)
-    print([t.exception() for t in tasks])
-        
+    results = await asyncio.gather(*tasks, return_exceptions=True)
+
+    print(results)        
 asyncio.run(main())
