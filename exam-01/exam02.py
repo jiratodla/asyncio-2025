@@ -14,14 +14,13 @@ async def fetch_data():
     return "data"
 
 async def process():
-    asyncio.create_task(fetch_data())
-    await asyncio.sleep(1)
-    data = await fetch_data()
+    data = await fetch_data()  # รอ fetch_data ครั้งเดียวต่อ process
     print("Processing", data)
 
 tasks = [process() for _ in range(5)]
 
 async def main():
     await asyncio.gather(*tasks)
+
 asyncio.run(main())
 
