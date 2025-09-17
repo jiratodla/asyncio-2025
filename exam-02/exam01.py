@@ -41,7 +41,7 @@ async def main():
         primes = await task
         print(f"Primes <= {n}: {primes}")   
     
-    
+    pass
 
 # เรียก main
 asyncio.run(main())
